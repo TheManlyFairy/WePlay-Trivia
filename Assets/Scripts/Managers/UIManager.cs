@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject OpenJoinRoomGroup;
     [SerializeField] GameObject StartupMessageGroup;
-    [SerializeField] Image loadingIcon;
+    //[SerializeField] Image loadingIcon;
 
     public static UIManager instance;
 
