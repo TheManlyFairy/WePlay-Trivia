@@ -10,6 +10,7 @@ public class TriviaIO : MonoBehaviour
     [SerializeField] TMP_InputField questionIndex;
     [SerializeField] TMP_InputField questionField;
     [SerializeField] TMP_InputField[] answerFields;
+    [SerializeField] TMP_Dropdown customQuestionsDropdown;
     string path = "Assets/test.txt";
     string[] questions;
 
@@ -19,6 +20,7 @@ public class TriviaIO : MonoBehaviour
     }
 
     #region Editing Actions
+    //Completely erases all data in custom questions file
     public void ClearBank()
     {
         GameManager.ClearBank();
@@ -28,6 +30,7 @@ public class TriviaIO : MonoBehaviour
 
         writer.Close();
     }
+    //Reads text from file separated by [Q] tags
     public void ReadQuestionBank()
     {
         StreamReader reader = new StreamReader(path);
@@ -38,7 +41,7 @@ public class TriviaIO : MonoBehaviour
         //Debug.Log("Number of questions: " + questions.Length);
 
     }
-    public void DisplayQuestionByIndex()
+    public void DEBUG_DisplayQuestionByIndex()
     {
         int index = Int32.Parse(questionIndex.text);
         if (index > questions.Length)
@@ -58,6 +61,8 @@ public class TriviaIO : MonoBehaviour
         warningMessage.text = questionBuilder.ToString();
         warningMessage.gameObject.SetActive(true);
     }
+
+    //Writes input fields into text file as a set of question and answers
     public void SubmitQuestionAndAnswers()
     {
         if (questionField.text.Equals(""))
@@ -90,6 +95,7 @@ public class TriviaIO : MonoBehaviour
     }
     #endregion
 
+    //Creates new Question object from input fields and adds them to GameManagers bank
     void AddQuestionsToBank()
     {
         GameManager.ClearBank();
@@ -105,6 +111,10 @@ public class TriviaIO : MonoBehaviour
             questionToAdd = new Question(QnA[0], answers);
             GameManager.AddQuestion(questionToAdd);
         }
+    }
+    void UpdateDropdownMenu()
+    {
+        
     }
     bool isThereEmptyAnswerField()
     {
